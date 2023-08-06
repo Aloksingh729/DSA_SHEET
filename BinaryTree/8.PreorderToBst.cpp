@@ -1,0 +1,29 @@
+Given an array of integers preorder, which represents the preorder traversal of a BST (i.e., binary search tree), construct the tree and return its root.
+
+  Input: preorder = [8,5,1,7,10,12]
+Output: [8,5,10,1,7,null,12]
+
+Code:
+class Solution {
+public:
+
+    TreeNode* solve(vector<int>&preorder,int mini, int maxi,int &i){
+        if(i>=preorder.size())
+        return NULL;
+        if(preorder[i]<mini||preorder[i]>maxi)
+        return NULL;
+
+        TreeNode* root= new TreeNode(preorder[i++]);
+        root->left=solve(preorder,mini,root->val,i);
+        root->right=solve(preorder,root->val,maxi,i);
+        return root;
+    }
+
+
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        int mini =INT_MIN;
+        int maxi=INT_MAX;
+        int i=0;
+        return solve(preorder,mini,maxi,i);
+    }
+};
