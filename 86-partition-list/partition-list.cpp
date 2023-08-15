@@ -1,36 +1,43 @@
-class Solution
-{
-    public:
-        ListNode* partition(ListNode *head, int x)
-        {
-            ListNode less_head(0);	// Dummy node for nodes less than x
-            ListNode *less = &less_head;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 
-            ListNode greater_head(0);	// Dummy node for nodes greater than or equal to x
-            ListNode *greater = &greater_head;
-
-            ListNode *current = head;
-
-            while (current)
-            {
-                if (current->val < x)
-                {
-                    less->next = current;
-                    less = less->next;
-                }
-                else
-                {
-                    greater->next = current;
-                    greater = greater->next;
-                }
-
-                current = current->next;
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if (head == NULL) return head;
+        
+        ListNode* smallerHead=new ListNode(); //Head of the list with nodes <x
+        ListNode* smallerTail=smallerHead; //Tail of the list with nodes <x
+        
+        ListNode* greaterHead=new ListNode();//Head of the list with nodes >=x
+        ListNode* greaterTail=greaterHead; //Tail of the list with nodes >=x
+        
+        ListNode* curr = head;
+        while (curr) {//partition into greater & smaller lists
+            if (curr->val < x) {
+                smallerTail->next = curr;
+                smallerTail =smallerTail->next;
+            } 
+            else {
+                greaterTail->next = curr;
+                greaterTail=greaterTail->next;
             }
-
-            greater->next = nullptr;	// Set the last node of the greater partition to null
-            less->next = greater_head.next;	// Connect the two partitions
-
-            return less_head.next;	// Return the modified head of the linked list
+            curr = curr->next;
         }
-
+        
+        greaterTail->next = NULL; 
+        smallerTail->next = greaterHead->next;//Connect the smaller and the greater lists
+        
+        head = smallerHead->next; //Update the head of the list
+       
+        return head;
+    }
 };
