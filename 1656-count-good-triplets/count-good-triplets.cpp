@@ -12,11 +12,11 @@ class Solution
                 {
                     for (int k = j + 1; k < n; k++)
                     {
-                        int diff1 = abs(arr[i] - arr[j]);
-                        int diff2 = abs(arr[j] - arr[k]);
-                        int diff3 = abs(arr[i] - arr[k]);
+                        // int diff1 = abs(arr[i] - arr[j]);
+                        // int diff2 = abs(arr[j] - arr[k]);
+                        // int diff3 = abs(arr[i] - arr[k]);
 
-                        if (diff1 <= a && diff2 <= b && diff3 <= c)
+                        if (abs(arr[i] - arr[j]) <= a &&  abs(arr[j] - arr[k]) <= b && abs(arr[i] - arr[k]) <= c)
                         {
                             count++;
                         }
