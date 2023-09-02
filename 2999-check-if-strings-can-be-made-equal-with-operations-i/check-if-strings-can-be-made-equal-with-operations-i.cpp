@@ -1,13 +1,25 @@
 class Solution {
 public:
     bool canBeEqual(string s1, string s2) {
-        // Check even indices (0 and 2)
-        bool evenCheck = (s1[0] == s2[0] && s1[2] == s2[2]) || (s1[0] == s2[2] && s1[2] == s2[0]);
         
-        // Check odd indices (1 and 3)
-        bool oddCheck = (s1[1] == s2[1] && s1[3] == s2[3]) || (s1[1] == s2[3] && s1[3] == s2[1]);
+        if(s1==s2) return true;
+        int i=0; int j=2; //with a gap of 2 as given in question
+
+        while(i<4){
+            if(s1[i]==s2[i]){
+                i++; j++; continue;
+            }
+            else{
+                if(s1[i]!=s2[j]){
+                    return false; //if not equal then not possible to equate string => return false;
+                }
+                else{
+                    swap(s2[i],s2[j]);
+                    i++; j++; // increment the pointers!
+                }
+            }
+        }
         
-        // Return true if either even or odd check succeeds
-        return evenCheck && oddCheck;
+        return true;
     }
 };
