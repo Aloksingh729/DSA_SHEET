@@ -1,19 +1,18 @@
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
-        unordered_map<int,int> mp;
-      ///  unordered_map<int,int> mp2;
-       for(auto &x:arr){
-           mp[x]++;
-       }
-       unordered_set<int> unique;
-    for (auto& entry : mp) {
-        if (!unique.insert(entry.second).second) {
-            // If inserting fails, it means the count is not unique
-            return false;
+        unordered_map<int, int> m;
+        for(int i=0; i<arr.size(); i++){
+            m[arr[i]]++;
         }
+        unordered_set<int> s;
+        for(auto x : m ){
+            int freq = x.second;
+            if(s.find(freq) != s.end()) return false;
+            else{
+                s.insert(freq);
+            }
+        }
+        return true;
     }
-     return true;
-    }
-   
 };
